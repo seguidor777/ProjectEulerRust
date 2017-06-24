@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="rustdoc">
+    <meta name="description" content="API documentation for the Rust `Factorized` struct in crate `prime`.">
+    <meta name="keywords" content="rust, rustlang, rust-lang, Factorized">
+
+    <title>prime::Factorized - Rust</title>
+
+    <link rel="stylesheet" type="text/css" href="../normalize.css">
+    <link rel="stylesheet" type="text/css" href="../rustdoc.css">
+    <link rel="stylesheet" type="text/css" href="../main.css">
+    
+
+    
+    
+</head>
+<body class="rustdoc struct">
+    <!--[if lte IE 8]>
+    <div class="warning">
+        This old browser is unsupported and will most likely display funky
+        things.
+    </div>
+    <![endif]-->
+
+    
+
+    <nav class="sidebar">
+        
+        <p class='location'>Struct Factorized</p><div class="block items"><ul><li><a href="#methods">Methods</a></li></ul></div><p class='location'><a href='index.html'>prime</a></p><script>window.sidebarCurrent = {name: 'Factorized', ty: 'struct', relpath: ''};</script><script defer src="sidebar-items.js"></script>
+    </nav>
+
+    <nav class="sub">
+        <form class="search-form js-only">
+            <div class="search-container">
+                <input class="search-input" name="search"
+                       autocomplete="off"
+                       placeholder="Click or press ‘S’ to search, ‘?’ for more options…"
+                       type="search">
+            </div>
+        </form>
+    </nav>
+
+    <section id='main' class="content">
+<h1 class='fqn'><span class='in-band'>Struct <a href='index.html'>prime</a>::<wbr><a class="struct" href=''>Factorized</a></span><span class='out-of-band'><span id='render-detail'>
+                   <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
+                       [<span class='inner'>&#x2212;</span>]
+                   </a>
+               </span><a class='srclink' href='../src/prime/lib.rs.html#356-359' title='goto source code'>[src]</a></span></h1>
+<pre class='rust struct'>pub struct Factorized&lt;'a, T&gt; { /* fields omitted */ }</pre><div class='docblock'><p>Factorized number providing multiple or divide operation without causing
+overflow.</p>
+
+<h1 id='example' class='section-header'><a href='#example'>Example</a></h1>
+<pre class="rust rust-example-rendered">
+<span class="kw">use</span> <span class="ident">prime</span>::{<span class="ident">Factorized</span>, <span class="ident">PrimeSet</span>};
+<span class="kw">use</span> <span class="ident">std</span>::<span class="ident">iter</span>;
+
+<span class="comment">// Calculates 40C20</span>
+<span class="kw">let</span> <span class="ident">ps</span> <span class="op">=</span> <span class="ident">PrimeSet</span>::<span class="ident">new</span>();
+<span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">fac</span> <span class="op">=</span> <span class="ident">Factorized</span>::<span class="op">&lt;</span><span class="ident">u64</span><span class="op">&gt;</span>::<span class="ident">new</span>(<span class="kw-2">&amp;</span><span class="ident">ps</span>);
+<span class="kw">for</span> <span class="ident">n</span> <span class="kw">in</span> <span class="number">21</span>..<span class="number">41</span> {
+    <span class="ident">fac</span>.<span class="ident">mul_assign</span>(<span class="ident">n</span>);
+}
+<span class="kw">for</span> <span class="ident">n</span> <span class="kw">in</span> <span class="number">1</span>..<span class="number">21</span> {
+    <span class="ident">fac</span>.<span class="ident">div_assign</span>(<span class="ident">n</span>);
+}
+<span class="macro">assert_eq</span><span class="macro">!</span>(<span class="number">137846528820</span>, <span class="ident">fac</span>.<span class="ident">into_integer</span>());</pre>
+</div><h2 id='methods'>Methods</h2><h3 class='impl'><span class='in-band'><code>impl&lt;'a, T:&nbsp;<a class="trait" href="../prime/trait.Factorize.html" title="trait prime::Factorize">Factorize</a> + <a class="trait" href="https://doc.rust-lang.org/nightly/core/cmp/trait.Eq.html" title="trait core::cmp::Eq">Eq</a> + <a class="trait" href="https://doc.rust-lang.org/nightly/core/hash/trait.Hash.html" title="trait core::hash::Hash">Hash</a>&gt; <a class="struct" href="../prime/struct.Factorized.html" title="struct prime::Factorized">Factorized</a>&lt;'a, T&gt;</code></span><span class='out-of-band'><div class='ghost'></div><a class='srclink' href='../src/prime/lib.rs.html#361-434' title='goto source code'>[src]</a></span></h3>
+<div class='impl-items'><h4 id='method.new' class="method"><span id='new.v' class='invisible'><code>fn <a href='#method.new' class='fnname'>new</a>(ps: &amp;<a class="struct" href="../prime/struct.PrimeSet.html" title="struct prime::PrimeSet">PrimeSet</a>) -&gt; <a class="struct" href="../prime/struct.Factorized.html" title="struct prime::Factorized">Factorized</a>&lt;T&gt;</code></span></h4>
+<div class='docblock'><p>Creates new empty factorized number.</p>
+
+<p>The empty factorized number represents <code>1</code>.</p>
+</div><h4 id='method.from_integer' class="method"><span id='from_integer.v' class='invisible'><code>fn <a href='#method.from_integer' class='fnname'>from_integer</a>(ps: &amp;<a class="struct" href="../prime/struct.PrimeSet.html" title="struct prime::PrimeSet">PrimeSet</a>, n: T) -&gt; <a class="struct" href="../prime/struct.Factorized.html" title="struct prime::Factorized">Factorized</a>&lt;T&gt;</code></span></h4>
+<div class='docblock'><p>Creates a factorized number from an integer type.</p>
+</div><h4 id='method.into_integer' class="method"><span id='into_integer.v' class='invisible'><code>fn <a href='#method.into_integer' class='fnname'>into_integer</a>(self) -&gt; T</code></span></h4>
+<div class='docblock'><p>Converts the factorized number into an integer type.</p>
+</div><h4 id='method.lcm_with' class="method"><span id='lcm_with.v' class='invisible'><code>fn <a href='#method.lcm_with' class='fnname'>lcm_with</a>(&amp;mut self, n: T)</code></span></h4>
+<div class='docblock'><p>Takes LCM (lowest common multiple) with given number and the factorized
+number.</p>
+</div><h4 id='method.mul_assign' class="method"><span id='mul_assign.v' class='invisible'><code>fn <a href='#method.mul_assign' class='fnname'>mul_assign</a>(&amp;mut self, n: T)</code></span></h4>
+<div class='docblock'><p>Multiples the factorized number and given number.</p>
+</div><h4 id='method.div_assign' class="method"><span id='div_assign.v' class='invisible'><code>fn <a href='#method.div_assign' class='fnname'>div_assign</a>(&amp;mut self, n: T)</code></span></h4>
+<div class='docblock'><p>Divides the factorized number by given number.</p>
+</div></div></section>
+    <section id='search' class="content hidden"></section>
+
+    <section class="footer"></section>
+
+    <aside id="help" class="hidden">
+        <div>
+            <h1 class="hidden">Help</h1>
+
+            <div class="shortcuts">
+                <h2>Keyboard Shortcuts</h2>
+
+                <dl>
+                    <dt>?</dt>
+                    <dd>Show this help dialog</dd>
+                    <dt>S</dt>
+                    <dd>Focus the search field</dd>
+                    <dt>&larrb;</dt>
+                    <dd>Move up in search results</dd>
+                    <dt>&rarrb;</dt>
+                    <dd>Move down in search results</dd>
+                    <dt>&#9166;</dt>
+                    <dd>Go to active search result</dd>
+                    <dt>+</dt>
+                    <dd>Collapse/expand all sections</dd>
+                </dl>
+            </div>
+
+            <div class="infos">
+                <h2>Search Tricks</h2>
+
+                <p>
+                    Prefix searches with a type followed by a colon (e.g.
+                    <code>fn:</code>) to restrict the search to a given type.
+                </p>
+
+                <p>
+                    Accepted types are: <code>fn</code>, <code>mod</code>,
+                    <code>struct</code>, <code>enum</code>,
+                    <code>trait</code>, <code>type</code>, <code>macro</code>,
+                    and <code>const</code>.
+                </p>
+
+                <p>
+                    Search functions by type signature (e.g.
+                    <code>vec -> usize</code> or <code>* -> vec</code>)
+                </p>
+            </div>
+        </div>
+    </aside>
+
+    
+
+    <script>
+        window.rootPath = "../";
+        window.currentCrate = "prime";
+    </script>
+    <script src="../main.js"></script>
+    <script defer src="../search-index.js"></script>
+</body>
+</html>

@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="rustdoc">
+    <meta name="description" content="API documentation for the Rust `p128` crate.">
+    <meta name="keywords" content="rust, rustlang, rust-lang, p128">
+
+    <title>p128 - Rust</title>
+
+    <link rel="stylesheet" type="text/css" href="../normalize.css">
+    <link rel="stylesheet" type="text/css" href="../rustdoc.css">
+    <link rel="stylesheet" type="text/css" href="../main.css">
+    
+
+    
+    
+</head>
+<body class="rustdoc mod">
+    <!--[if lte IE 8]>
+    <div class="warning">
+        This old browser is unsupported and will most likely display funky
+        things.
+    </div>
+    <![endif]-->
+
+    
+
+    <nav class="sidebar">
+        
+        <p class='location'>Crate p128</p><p class='location'></p><script>window.sidebarCurrent = {name: 'p128', ty: 'mod', relpath: '../'};</script>
+    </nav>
+
+    <nav class="sub">
+        <form class="search-form js-only">
+            <div class="search-container">
+                <input class="search-input" name="search"
+                       autocomplete="off"
+                       placeholder="Click or press ‘S’ to search, ‘?’ for more options…"
+                       type="search">
+            </div>
+        </form>
+    </nav>
+
+    <section id='main' class="content">
+<h1 class='fqn'><span class='in-band'>Crate <a class="mod" href=''>p128</a></span><span class='out-of-band'><span id='render-detail'>
+                   <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
+                       [<span class='inner'>&#x2212;</span>]
+                   </a>
+               </span><a class='srclink' href='../src/p128/p128.rs.html#1-327' title='goto source code'>[src]</a></span></h1>
+<div class='docblock'><p><a href="https://projecteuler.net/problem=128">Problem 128</a> solver.</p>
+
+<h1 id='定義' class='section-header'><a href='#定義'>定義</a></h1>
+<p>最内のリングを 0 周目のリングとする。
+<code>r</code> 周目のリングの要素数を <code>a(r)</code> 、
+<code>r</code> 週目のリングの、真北から数えて <code>m</code> 番目のセルの数値を <code>b(r, m)</code>
+とそれぞれおくと、</p>
+
+<pre><code class="language-math">a(0) = 1
+a(r) = 6r if r &gt; 0
+
+b(0, 0) = 1
+b(r, m) = \sum_{k=0}^{r-1} a(k) + 1 + m
+        = 1 + 6 + 12 + ... + 6(r-1) + 1 + m
+        = 2 + 3r(r-1) + m
+</code></pre>
+
+<p>となる。
+利便性のため、任意の <code>m</code> について、<code>b(r, m)</code> は以下を満たすとする。</p>
+
+<pre><code class="language-math">b(r, m) = b(r, m + a(r)) if m &lt; 0 or m &gt;= 6r
+</code></pre>
+
+<p>また、上記式より以下を得る。</p>
+
+<pre><code class="language-math">b(r+1, m_a) - b(r, m_b) = 6r + m_a - m_b
+b(r, m_a) - b(r, m_b)   = m_a - m_b
+b(r, m_a) - b(r-1, m_b) = 6(r-1) + m_a - m_b
+</code></pre>
+
+<p><em>r</em> 周目のリング中のセルは、リングのどの部分に属しているかで
+以下のように分類する。</p>
+
+<ul>
+<li>角 - <code>m = rk</code> を満たすセル。
+<code>r+1</code> 周目のセル3つと、<code>r-1</code> 周目のセル 1 つと隣接する。
+<code>r &gt; 0</code> の周に存在。</li>
+<li>辺 - 角ではないセル。
+<code>r+1</code> 周目のセルと、 <code>r-1</code> 周目のセルそれぞれに 2 つに隣接する。
+<code>r &gt; 1</code> の周に存在。</li>
+</ul>
+
+<h1 id='解析' class='section-header'><a href='#解析'>解析</a></h1>
+<h2 id='r0-の場合' class='section-header'><a href='#r0-の場合'><code>r=0</code> の場合</a></h2>
+<p>周囲のセルの数値との差は <code>1</code>. <code>2</code>, <code>3</code>, <code>4</code>, <code>5</code>, <code>6</code> であり、
+<code>2</code>, <code>3</code>, <code>5</code> が素数なので、 <code>PD(1) = 3</code> となる。</p>
+
+<h2 id='辺の場合' class='section-header'><a href='#辺の場合'>辺の場合</a></h2>
+<p><code>r</code> 周目の辺に属するセルの場合、<code>r+1</code> 周目の連続したセル2つおよび
+<code>r-1</code> 週目の連続したセル2つと隣接する。</p>
+
+<h3 id='m-neq-6r-1-の場合' class='section-header'><a href='#m-neq-6r-1-の場合'><code>m \neq 6r-1</code> の場合</a></h3>
+<p><code>m \neq 6r-1</code> の場合、連続した 2 つセルとの差 2 つは、
+いずれかは必ず偶数となる。
+よって、これら 4 つのセルの数値との差のうち
+素数となるのは最大 2 つである。
+すなわち、辺のセルについては <code>PD(n)</code> が 3 となることはない。</p>
+
+<h3 id='m--6r-1-の場合' class='section-header'><a href='#m--6r-1-の場合'><code>m = 6r-1</code> の場合</a></h3>
+<p><code>m = 6r-1</code> の場合、隣接するセルの数値との差は以下である。</p>
+
+<ul>
+<li><code>b(r+1, 6r+4) - b(r, 6r-1) = 6r+5</code></li>
+<li><code>b(r+1, 6r+5) - b(r, 6r-1) = 6(r+1)</code></li>
+<li><code>b(r, 6r-1) - b(r, 6r-2) = 1</code></li>
+<li><code>b(r, 6r-1) - b(r, 0) = 6r-1</code></li>
+<li><code>b(r, 6r-1) - b(r-1, 0) = 12r-7</code></li>
+<li><code>b(r, 6r-1) - b(r-1, 6r-7) = 6r</code></li>
+</ul>
+
+<p><code>6(r+1)</code>, <code>1</code>, <code>6r</code> は素数ではないため、<code>PD(n) = 3</code> となるセルは、
+<code>6r+5</code>, <code>6r-1</code>, <code>12r-7</code> が素数でなければならない。</p>
+
+<p>なお、 <code>b(r, 6r-1) = 3r^2 + 3r + 1</code> である。</p>
+
+<h2 id='角の場合' class='section-header'><a href='#角の場合'>角の場合</a></h2>
+<p>角のセルに隣接するセルの数値は、
+以下の6種類である。
+ここで、 <code>k = m/r</code> である。</p>
+
+<ul>
+<li><code>b(r+1, rk-1+k)</code></li>
+<li><code>b(r+1, rk+k)</code></li>
+<li><code>b(r+1, rk+1+k)</code></li>
+<li><code>b(r, rk-1)</code></li>
+<li><code>b(r, rk+1)</code></li>
+<li><code>b(r-1, rk-k)</code></li>
+</ul>
+
+<h3 id='k--0-の場合' class='section-header'><a href='#k--0-の場合'><code>k &gt; 0</code> の場合</a></h3>
+<p><code>k &gt; 0</code> の場合、セルと隣接するセルの数値との差は以下である。</p>
+
+<ul>
+<li><code>b(r+1, rk-1+k) - b(r, rk) = 6r + k - 1</code></li>
+<li><code>b(r+1, rk+k) - b(r, rk) = 6r + k</code></li>
+<li><code>b(r+1, rk+1+k) - b(r, rk) = 6r + k + 1</code></li>
+<li><code>b(r, rk) - b(r, rk-1) = 1</code></li>
+<li><code>b(r, rk+1) - b(r, rk) = 1</code></li>
+<li><code>b(r, rk) - b(r-1, rk-k) = 6(r-1) + k</code></li>
+</ul>
+
+<p><code>k</code> が偶数の場合、<code>6r+k</code>, <code>6(r-1)+k</code> は偶数となる。
+<code>k</code> が奇数の場合、<code>6r+k-1</code>, <code>6r+k+1</code> は偶数となる。
+よって、<code>k &gt; 1</code> の場合、<code>PD(3)</code> となることはない。</p>
+
+<h3 id='k--0-の場合-1' class='section-header'><a href='#k--0-の場合-1'><code>k = 0</code> の場合</a></h3>
+<p><code>k = 0</code> の場合、セルと隣接するセルの数値との差は以下である。</p>
+
+<ul>
+<li><code>b(r+1, -1) - b(r, 0) = b(r+1, 6r+5) - b(r, 0) = 12r + 5</code></li>
+<li><code>b(r+1, 0) - b(r, 0) = 6r</code></li>
+<li><code>b(r+1, 1) - b(r, 0) = 6r + 1</code></li>
+<li><code>b(r, -1) - b(r, 0) = b(r, 6r-1) - b(r, 0) = 6r - 1</code></li>
+<li><code>b(r, 1) - b(r, 0) = 1</code></li>
+<li><code>b(r, 0) - b(r-1, 0) = 6r(r-1)</code></li>
+</ul>
+
+<p><code>6r</code>, <code>6r(r-1)</code>, <code>1</code> は素数ではないため、<code>PD(n) = 3</code> となるためには、
+<code>12r+5</code>, <code>6r+1</code>, <code>6r-1</code> が素数でなければならない。</p>
+
+<p>なお、 <code>b(r, 0) = 3r^2 - 3r + 2</code> である。</p>
+
+<h1 id='解法' class='section-header'><a href='#解法'>解法</a></h1>
+<p><code>r &gt; 0</code> について、以下すべてが素数の場合、 <code>PD(n) = 3</code> となる。</p>
+
+<pre><code class="language-math">12r+5, 6r+1, 6r-1
+</code></pre>
+
+<p><code>r &gt; 1</code> について、以下すべてが素数の場合、 <code>PD(n) = 3</code> となる。</p>
+
+<pre><code class="language-math">6r-1, 6r-5, 12r-7
+</code></pre>
+
+<p><code>r=0</code> から順番にこれらを満たす数をカウントする。</p>
+</div></section>
+    <section id='search' class="content hidden"></section>
+
+    <section class="footer"></section>
+
+    <aside id="help" class="hidden">
+        <div>
+            <h1 class="hidden">Help</h1>
+
+            <div class="shortcuts">
+                <h2>Keyboard Shortcuts</h2>
+
+                <dl>
+                    <dt>?</dt>
+                    <dd>Show this help dialog</dd>
+                    <dt>S</dt>
+                    <dd>Focus the search field</dd>
+                    <dt>&larrb;</dt>
+                    <dd>Move up in search results</dd>
+                    <dt>&rarrb;</dt>
+                    <dd>Move down in search results</dd>
+                    <dt>&#9166;</dt>
+                    <dd>Go to active search result</dd>
+                    <dt>+</dt>
+                    <dd>Collapse/expand all sections</dd>
+                </dl>
+            </div>
+
+            <div class="infos">
+                <h2>Search Tricks</h2>
+
+                <p>
+                    Prefix searches with a type followed by a colon (e.g.
+                    <code>fn:</code>) to restrict the search to a given type.
+                </p>
+
+                <p>
+                    Accepted types are: <code>fn</code>, <code>mod</code>,
+                    <code>struct</code>, <code>enum</code>,
+                    <code>trait</code>, <code>type</code>, <code>macro</code>,
+                    and <code>const</code>.
+                </p>
+
+                <p>
+                    Search functions by type signature (e.g.
+                    <code>vec -> usize</code> or <code>* -> vec</code>)
+                </p>
+            </div>
+        </div>
+    </aside>
+
+    
+
+    <script>
+        window.rootPath = "../";
+        window.currentCrate = "p128";
+    </script>
+    <script src="../main.js"></script>
+    <script defer src="../search-index.js"></script>
+</body>
+</html>

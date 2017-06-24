@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="rustdoc">
+    <meta name="description" content="API documentation for the Rust `p131` crate.">
+    <meta name="keywords" content="rust, rustlang, rust-lang, p131">
+
+    <title>p131 - Rust</title>
+
+    <link rel="stylesheet" type="text/css" href="../normalize.css">
+    <link rel="stylesheet" type="text/css" href="../rustdoc.css">
+    <link rel="stylesheet" type="text/css" href="../main.css">
+    
+
+    
+    
+</head>
+<body class="rustdoc mod">
+    <!--[if lte IE 8]>
+    <div class="warning">
+        This old browser is unsupported and will most likely display funky
+        things.
+    </div>
+    <![endif]-->
+
+    
+
+    <nav class="sidebar">
+        
+        <p class='location'>Crate p131</p><p class='location'></p><script>window.sidebarCurrent = {name: 'p131', ty: 'mod', relpath: '../'};</script>
+    </nav>
+
+    <nav class="sub">
+        <form class="search-form js-only">
+            <div class="search-container">
+                <input class="search-input" name="search"
+                       autocomplete="off"
+                       placeholder="Click or press ‘S’ to search, ‘?’ for more options…"
+                       type="search">
+            </div>
+        </form>
+    </nav>
+
+    <section id='main' class="content">
+<h1 class='fqn'><span class='in-band'>Crate <a class="mod" href=''>p131</a></span><span class='out-of-band'><span id='render-detail'>
+                   <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
+                       [<span class='inner'>&#x2212;</span>]
+                   </a>
+               </span><a class='srclink' href='../src/p131/p131.rs.html#1-119' title='goto source code'>[src]</a></span></h1>
+<div class='docblock'><p><a href="https://projecteuler.net/problem=131">Problem 131</a> solver.</p>
+
+<h1 id='解析' class='section-header'><a href='#解析'>解析</a></h1>
+<pre><code class="language-math">n^3 + n^2p = m^3
+</code></pre>
+
+<p>とおく。</p>
+
+<h2 id='定理-1' class='section-header'><a href='#定理-1'>定理 1</a></h2>
+<p><code>n</code> と <code>p</code> は互いに素である。</p>
+
+<h2 id='証明' class='section-header'><a href='#証明'>証明</a></h2>
+<p><code>p</code> は素数なので、<code>n</code> と <code>p</code> が互いに素でない場合、
+ある自然数 <code>k</code> を使って <code>n = kp</code> と書ける。
+このとき、</p>
+
+<pre><code class="language-math">n^3 + n^2p = p^3k^2(k + 1) = m^3
+k^3 + k^2 = (m / p)^3
+</code></pre>
+
+<p>となる。<code>k^3</code> の次に大きい立方数は <code>(k+1)^3</code> なので、
+<code>k^3 + k^2</code> は立方数ではなく、矛盾する。
+よって、<code>n</code> と <code>p</code> は互いに素である■</p>
+
+<h2 id='定理-2' class='section-header'><a href='#定理-2'>定理 2</a></h2>
+<p><code>n</code> は立方数である。また、<code>p</code> は立方数の差として表される。</p>
+
+<h2 id='証明-1' class='section-header'><a href='#証明-1'>証明</a></h2>
+<p><code>n</code> は、互いに素である因数 <code>s0</code>, <code>s1</code>, <code>s2</code> を用いて、
+以下のように書ける。</p>
+
+<pre><code class="language-math">n = s0^(3e0) * s1^(3e1+1) * s2^(3e2+2)
+</code></pre>
+
+<p>このとき、<code>n</code> と <code>p</code> は互いに素であるため、
+<code>n+p</code> は以下のように因数分解できなければならない。</p>
+
+<pre><code class="language-math">n + p = s0^(3e0) * s1^(3e1+1) * s2^(3e2+2) + p
+      = s1^(3e&#39;1+1) * s2^(3e&#39;2+2) * k^3
+</code></pre>
+
+<p>上式を整理して、以下を得る。</p>
+
+<pre><code class="language-math">p = s1^(3e&#39;&#39;1+1) * s2^(3e&#39;&#39;2+2) * (k^3 - p^3)
+</code></pre>
+
+<p>右辺は合成数ではないため、<code>s1^(3e&#39;&#39;1+1) * s2(3e&#39;&#39;2+2) = 1</code> である。
+すなわち、<code>n = s0^(3e0)</code> と書け、立方数である■</p>
+
+<h2 id='定理3' class='section-header'><a href='#定理3'>定理3</a></h2>
+<p><code>p</code> は任意の数 <code>q</code> を用いて以下のように表される。</p>
+
+<p><code>p = 3q^2 + 3q + 1</code></p>
+
+<h2 id='証明-2' class='section-header'><a href='#証明-2'>証明</a></h2>
+<p>定理2 より、<code>p</code> は立方根の差として表される素数である。
+<code>p = r^3 - q^3</code> と置くと、以下を得る。</p>
+
+<pre><code class="language-math">p = (r-q)(r^2+rq+q^2)
+</code></pre>
+
+<p><code>r^2 + rq + q^2 &gt; 1</code> より、 <code>r - q = 1</code> である。
+すなわち、</p>
+
+<pre><code class="language-math">p = (q+1)^2 + q(q+1) + q^2
+  = 3q^2 + 3q + 1
+</code></pre>
+
+<p>である ■</p>
+
+<h1 id='解法' class='section-header'><a href='#解法'>解法</a></h1>
+<p><code>3q^2 + 3q + 1</code> を <code>q</code> について計算し、素数のものを列挙する。</p>
+</div></section>
+    <section id='search' class="content hidden"></section>
+
+    <section class="footer"></section>
+
+    <aside id="help" class="hidden">
+        <div>
+            <h1 class="hidden">Help</h1>
+
+            <div class="shortcuts">
+                <h2>Keyboard Shortcuts</h2>
+
+                <dl>
+                    <dt>?</dt>
+                    <dd>Show this help dialog</dd>
+                    <dt>S</dt>
+                    <dd>Focus the search field</dd>
+                    <dt>&larrb;</dt>
+                    <dd>Move up in search results</dd>
+                    <dt>&rarrb;</dt>
+                    <dd>Move down in search results</dd>
+                    <dt>&#9166;</dt>
+                    <dd>Go to active search result</dd>
+                    <dt>+</dt>
+                    <dd>Collapse/expand all sections</dd>
+                </dl>
+            </div>
+
+            <div class="infos">
+                <h2>Search Tricks</h2>
+
+                <p>
+                    Prefix searches with a type followed by a colon (e.g.
+                    <code>fn:</code>) to restrict the search to a given type.
+                </p>
+
+                <p>
+                    Accepted types are: <code>fn</code>, <code>mod</code>,
+                    <code>struct</code>, <code>enum</code>,
+                    <code>trait</code>, <code>type</code>, <code>macro</code>,
+                    and <code>const</code>.
+                </p>
+
+                <p>
+                    Search functions by type signature (e.g.
+                    <code>vec -> usize</code> or <code>* -> vec</code>)
+                </p>
+            </div>
+        </div>
+    </aside>
+
+    
+
+    <script>
+        window.rootPath = "../";
+        window.currentCrate = "p131";
+    </script>
+    <script src="../main.js"></script>
+    <script defer src="../search-index.js"></script>
+</body>
+</html>

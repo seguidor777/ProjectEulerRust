@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["Digits","An iterator that enumerates each digit of a number."]],"trait":[["Integer","Extension methods for num::Integer trait."]]});

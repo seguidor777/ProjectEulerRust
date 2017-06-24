@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="rustdoc">
+    <meta name="description" content="API documentation for the Rust `Integer` trait in crate `integer`.">
+    <meta name="keywords" content="rust, rustlang, rust-lang, Integer">
+
+    <title>integer::Integer - Rust</title>
+
+    <link rel="stylesheet" type="text/css" href="../normalize.css">
+    <link rel="stylesheet" type="text/css" href="../rustdoc.css">
+    <link rel="stylesheet" type="text/css" href="../main.css">
+    
+
+    
+    
+</head>
+<body class="rustdoc trait">
+    <!--[if lte IE 8]>
+    <div class="warning">
+        This old browser is unsupported and will most likely display funky
+        things.
+    </div>
+    <![endif]-->
+
+    
+
+    <nav class="sidebar">
+        
+        <p class='location'>Trait Integer</p><div class="block items"><ul><li><a href="#provided-methods">Provided Methods</a></li><li><a href="#implementors">Implementors</a></li></ul></div><p class='location'><a href='index.html'>integer</a></p><script>window.sidebarCurrent = {name: 'Integer', ty: 'trait', relpath: ''};</script><script defer src="sidebar-items.js"></script>
+    </nav>
+
+    <nav class="sub">
+        <form class="search-form js-only">
+            <div class="search-container">
+                <input class="search-input" name="search"
+                       autocomplete="off"
+                       placeholder="Click or press ‘S’ to search, ‘?’ for more options…"
+                       type="search">
+            </div>
+        </form>
+    </nav>
+
+    <section id='main' class="content">
+<h1 class='fqn'><span class='in-band'>Trait <a href='index.html'>integer</a>::<wbr><a class="trait" href=''>Integer</a></span><span class='out-of-band'><span id='render-detail'>
+                   <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
+                       [<span class='inner'>&#x2212;</span>]
+                   </a>
+               </span><a class='srclink' href='../src/integer/lib.rs.html#21-238' title='goto source code'>[src]</a></span></h1>
+<pre class='rust trait'>pub trait Integer: <a class="trait" href="../num_integer/trait.Integer.html" title="trait num_integer::Integer">Integer</a> + <a class="trait" href="https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html" title="trait core::clone::Clone">Clone</a> + <a class="trait" href="../num_traits/cast/trait.FromPrimitive.html" title="trait num_traits::cast::FromPrimitive">FromPrimitive</a> + <a class="trait" href="../num_traits/cast/trait.ToPrimitive.html" title="trait num_traits::cast::ToPrimitive">ToPrimitive</a> {
+    fn <a href='#method.div_ceil' class='fnname'>div_ceil</a>(&amp;self, other: &amp;Self) -&gt; Self { ... }
+    fn <a href='#method.div_round' class='fnname'>div_round</a>(&amp;self, other: &amp;Self) -&gt; Self { ... }
+    fn <a href='#method.into_digits' class='fnname'>into_digits</a>(self, radix: Self) -&gt; <a class="struct" href="../integer/struct.Digits.html" title="struct integer::Digits">Digits</a>&lt;Self&gt; { ... }
+    fn <a href='#method.into_digit_histogram' class='fnname'>into_digit_histogram</a>(self) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.array.html">[</a><a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.u32.html">u32</a><a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.array.html">; 10]</a> { ... }
+    fn <a href='#method.from_digits' class='fnname'>from_digits</a>&lt;T:&nbsp;<a class="trait" href="https://doc.rust-lang.org/nightly/core/iter/iterator/trait.Iterator.html" title="trait core::iter::iterator::Iterator">Iterator</a>&lt;Item = Self&gt;&gt;(digits: T, radix: Self) -&gt; Self { ... }
+    fn <a href='#method.into_palindromic' class='fnname'>into_palindromic</a>(self, radix: Self, duplicate_middle: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>) -&gt; Self { ... }
+    fn <a href='#method.is_palindromic' class='fnname'>is_palindromic</a>(self, radix: Self) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a> { ... }
+    fn <a href='#method.sqrt' class='fnname'>sqrt</a>(&amp;self) -&gt; Self { ... }
+    fn <a href='#method.factorial' class='fnname'>factorial</a>(&amp;self) -&gt; Self { ... }
+    fn <a href='#method.mod_pow' class='fnname'>mod_pow</a>(&amp;self, exp: &amp;Self, modulo: &amp;Self) -&gt; Self { ... }
+}</pre><div class='docblock'><p>Extension methods for num::Integer trait.</p>
+</div>
+            <h2 id='provided-methods'>Provided Methods</h2>
+            <div class='methods'>
+        <h3 id='method.div_ceil' class='method'><span id='div_ceil.v' class='invisible'><code>fn <a href='#method.div_ceil' class='fnname'>div_ceil</a>(&amp;self, other: &amp;Self) -&gt; Self</code></span></h3><div class='docblock'><p>Divide two numbers, return the result, rounded up.</p>
+
+<h1 id='arguments' class='section-header'><a href='#arguments'>Arguments</a></h1>
+<ul>
+<li>x - an integer</li>
+<li>y - an integer distinct from 0u</li>
+</ul>
+
+<h1 id='return-value' class='section-header'><a href='#return-value'>Return value</a></h1>
+<p>The smallest integer <code>q</code> such that <code>x/y &lt;= q</code>.</p>
+</div><h3 id='method.div_round' class='method'><span id='div_round.v' class='invisible'><code>fn <a href='#method.div_round' class='fnname'>div_round</a>(&amp;self, other: &amp;Self) -&gt; Self</code></span></h3><div class='docblock'><p>Divide two numbers, return the result, rounded to the closest integer.</p>
+
+<h1 id='arguments-1' class='section-header'><a href='#arguments-1'>Arguments</a></h1>
+<ul>
+<li>x - an integer</li>
+<li>y - an integer distinct from 0u</li>
+</ul>
+
+<h1 id='return-value-1' class='section-header'><a href='#return-value-1'>Return value</a></h1>
+<p>The integer <code>q</code> closest to <code>x/y</code>.</p>
+</div><h3 id='method.into_digits' class='method'><span id='into_digits.v' class='invisible'><code>fn <a href='#method.into_digits' class='fnname'>into_digits</a>(self, radix: Self) -&gt; <a class="struct" href="../integer/struct.Digits.html" title="struct integer::Digits">Digits</a>&lt;Self&gt;</code></span></h3><div class='docblock'><p>Creates an iterator to enumerate each digit from the lower of the number.</p>
+
+<h1 id='example' class='section-header'><a href='#example'>Example</a></h1>
+<pre class="rust rust-example-rendered">
+<span class="kw">use</span> <span class="ident">integer</span>::<span class="ident">Integer</span>;
+
+<span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">it</span> <span class="op">=</span> <span class="number">12345</span>.<span class="ident">into_digits</span>(<span class="number">10</span>);
+<span class="macro">assert_eq</span><span class="macro">!</span>(<span class="prelude-val">Some</span>(<span class="number">5</span>), <span class="ident">it</span>.<span class="ident">next</span>());
+<span class="macro">assert_eq</span><span class="macro">!</span>(<span class="prelude-val">Some</span>(<span class="number">4</span>), <span class="ident">it</span>.<span class="ident">next</span>());
+<span class="macro">assert_eq</span><span class="macro">!</span>(<span class="prelude-val">Some</span>(<span class="number">3</span>), <span class="ident">it</span>.<span class="ident">next</span>());
+<span class="macro">assert_eq</span><span class="macro">!</span>(<span class="prelude-val">Some</span>(<span class="number">2</span>), <span class="ident">it</span>.<span class="ident">next</span>());
+<span class="macro">assert_eq</span><span class="macro">!</span>(<span class="prelude-val">Some</span>(<span class="number">1</span>), <span class="ident">it</span>.<span class="ident">next</span>());
+<span class="macro">assert_eq</span><span class="macro">!</span>(<span class="prelude-val">None</span>,    <span class="ident">it</span>.<span class="ident">next</span>());</pre>
+</div><h3 id='method.into_digit_histogram' class='method'><span id='into_digit_histogram.v' class='invisible'><code>fn <a href='#method.into_digit_histogram' class='fnname'>into_digit_histogram</a>(self) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.array.html">[</a><a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.u32.html">u32</a><a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.array.html">; 10]</a></code></span></h3><div class='docblock'><p>Creates a histogram of the number.</p>
+
+<h1 id='example-1' class='section-header'><a href='#example-1'>Example</a></h1>
+<pre class="rust rust-example-rendered">
+<span class="kw">use</span> <span class="ident">integer</span>::<span class="ident">Integer</span>;
+<span class="macro">assert</span><span class="macro">!</span>([<span class="number">0</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>] <span class="op">==</span> <span class="number">123</span>.<span class="ident">into_digit_histogram</span>());
+<span class="macro">assert</span><span class="macro">!</span>([<span class="number">0</span>, <span class="number">3</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>] <span class="op">==</span> <span class="number">111</span>.<span class="ident">into_digit_histogram</span>());
+<span class="macro">assert</span><span class="macro">!</span>([<span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>] <span class="op">==</span> <span class="number">0</span>.<span class="ident">into_digit_histogram</span>());</pre>
+</div><h3 id='method.from_digits' class='method'><span id='from_digits.v' class='invisible'><code>fn <a href='#method.from_digits' class='fnname'>from_digits</a>&lt;T:&nbsp;<a class="trait" href="https://doc.rust-lang.org/nightly/core/iter/iterator/trait.Iterator.html" title="trait core::iter::iterator::Iterator">Iterator</a>&lt;Item = Self&gt;&gt;(digits: T, radix: Self) -&gt; Self</code></span></h3><div class='docblock'><p>Creates an integer from an iterator to enumerate each digit from the lower.</p>
+
+<h1 id='example-2' class='section-header'><a href='#example-2'>Example</a></h1>
+<pre class="rust rust-example-rendered">
+<span class="kw">use</span> <span class="ident">integer</span>::<span class="ident">Integer</span>;
+
+<span class="macro">assert_eq</span><span class="macro">!</span>(<span class="number">321</span>, <span class="ident">Integer</span>::<span class="ident">from_digits</span>(<span class="macro">vec</span><span class="macro">!</span>[<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>].<span class="ident">into_iter</span>(), <span class="number">10</span>));
+<span class="macro">assert_eq</span><span class="macro">!</span>(<span class="number">0x321</span>, <span class="ident">Integer</span>::<span class="ident">from_digits</span>(<span class="macro">vec</span><span class="macro">!</span>[<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>].<span class="ident">into_iter</span>(), <span class="number">16</span>));
+<span class="macro">assert_eq</span><span class="macro">!</span>(<span class="number">0</span>, <span class="ident">Integer</span>::<span class="ident">from_digits</span>(<span class="macro">vec</span><span class="macro">!</span>[].<span class="ident">into_iter</span>(), <span class="number">10</span>));</pre>
+</div><h3 id='method.into_palindromic' class='method'><span id='into_palindromic.v' class='invisible'><code>fn <a href='#method.into_palindromic' class='fnname'>into_palindromic</a>(self, radix: Self, duplicate_middle: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>) -&gt; Self</code></span></h3><div class='docblock'><p>Creates a palindromic number from <code>self</code>.</p>
+
+<h1 id='example-3' class='section-header'><a href='#example-3'>Example</a></h1>
+<pre class="rust rust-example-rendered">
+<span class="kw">use</span> <span class="ident">integer</span>::<span class="ident">Integer</span>;
+
+<span class="macro">assert_eq</span><span class="macro">!</span>(<span class="number">12321</span>, <span class="number">123</span>.<span class="ident">into_palindromic</span>(<span class="number">10</span>, <span class="bool-val">false</span>));
+<span class="macro">assert_eq</span><span class="macro">!</span>(<span class="number">123321</span>, <span class="number">123</span>.<span class="ident">into_palindromic</span>(<span class="number">10</span>, <span class="bool-val">true</span>));</pre>
+</div><h3 id='method.is_palindromic' class='method'><span id='is_palindromic.v' class='invisible'><code>fn <a href='#method.is_palindromic' class='fnname'>is_palindromic</a>(self, radix: Self) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a></code></span></h3><div class='docblock'><p>Returns <code>true</code> if the number is palindromic.</p>
+
+<h1 id='example-4' class='section-header'><a href='#example-4'>Example</a></h1>
+<pre class="rust rust-example-rendered">
+<span class="kw">use</span> <span class="ident">integer</span>::<span class="ident">Integer</span>;
+
+<span class="macro">assert_eq</span><span class="macro">!</span>(<span class="bool-val">true</span>, <span class="number">12321</span>.<span class="ident">is_palindromic</span>(<span class="number">10</span>));
+<span class="macro">assert_eq</span><span class="macro">!</span>(<span class="bool-val">false</span>, <span class="number">12345</span>.<span class="ident">is_palindromic</span>(<span class="number">10</span>));</pre>
+</div><h3 id='method.sqrt' class='method'><span id='sqrt.v' class='invisible'><code>fn <a href='#method.sqrt' class='fnname'>sqrt</a>(&amp;self) -&gt; Self</code></span></h3><div class='docblock'><p>Takes the square root of the number.</p>
+</div><h3 id='method.factorial' class='method'><span id='factorial.v' class='invisible'><code>fn <a href='#method.factorial' class='fnname'>factorial</a>(&amp;self) -&gt; Self</code></span></h3><div class='docblock'><p>Gets the factorial of the number.</p>
+
+<h1 id='example-5' class='section-header'><a href='#example-5'>Example</a></h1>
+<pre class="rust rust-example-rendered">
+<span class="kw">use</span> <span class="ident">integer</span>::<span class="ident">Integer</span>;
+
+<span class="macro">assert_eq</span><span class="macro">!</span>(<span class="number">1</span>, <span class="number">0</span>.<span class="ident">factorial</span>());
+<span class="macro">assert_eq</span><span class="macro">!</span>(<span class="number">1</span>, <span class="number">1</span>.<span class="ident">factorial</span>());
+<span class="macro">assert_eq</span><span class="macro">!</span>(<span class="number">2</span>, <span class="number">2</span>.<span class="ident">factorial</span>());
+<span class="macro">assert_eq</span><span class="macro">!</span>(<span class="number">6</span>, <span class="number">3</span>.<span class="ident">factorial</span>());
+<span class="macro">assert_eq</span><span class="macro">!</span>(<span class="number">24</span>, <span class="number">4</span>.<span class="ident">factorial</span>());</pre>
+</div><h3 id='method.mod_pow' class='method'><span id='mod_pow.v' class='invisible'><code>fn <a href='#method.mod_pow' class='fnname'>mod_pow</a>(&amp;self, exp: &amp;Self, modulo: &amp;Self) -&gt; Self</code></span></h3><div class='docblock'><p>Takes the modular exponentation of the number.</p>
+</div></div>
+        <h2 id='implementors'>Implementors</h2>
+        <ul class='item-list' id='implementors-list'>
+    <li><code>impl Integer for <a class="struct" href="../num_bigint/biguint/struct.BigUint.html" title="struct num_bigint::biguint::BigUint">BigUint</a></code></li>
+<li><code>impl Integer for <a class="struct" href="../num_bigint/bigint/struct.BigInt.html" title="struct num_bigint::bigint::BigInt">BigInt</a></code></li>
+<li><code>impl Integer for <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i8.html">i8</a></code></li>
+<li><code>impl Integer for <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i16.html">i16</a></code></li>
+<li><code>impl Integer for <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a></code></li>
+<li><code>impl Integer for <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i64.html">i64</a></code></li>
+<li><code>impl Integer for <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.isize.html">isize</a></code></li>
+<li><code>impl Integer for <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.u8.html">u8</a></code></li>
+<li><code>impl Integer for <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.u16.html">u16</a></code></li>
+<li><code>impl Integer for <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.u32.html">u32</a></code></li>
+<li><code>impl Integer for <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.u64.html">u64</a></code></li>
+<li><code>impl Integer for <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.usize.html">usize</a></code></li>
+</ul><script type="text/javascript" async
+                         src="../implementors/integer/trait.Integer.js">
+                 </script></section>
+    <section id='search' class="content hidden"></section>
+
+    <section class="footer"></section>
+
+    <aside id="help" class="hidden">
+        <div>
+            <h1 class="hidden">Help</h1>
+
+            <div class="shortcuts">
+                <h2>Keyboard Shortcuts</h2>
+
+                <dl>
+                    <dt>?</dt>
+                    <dd>Show this help dialog</dd>
+                    <dt>S</dt>
+                    <dd>Focus the search field</dd>
+                    <dt>&larrb;</dt>
+                    <dd>Move up in search results</dd>
+                    <dt>&rarrb;</dt>
+                    <dd>Move down in search results</dd>
+                    <dt>&#9166;</dt>
+                    <dd>Go to active search result</dd>
+                    <dt>+</dt>
+                    <dd>Collapse/expand all sections</dd>
+                </dl>
+            </div>
+
+            <div class="infos">
+                <h2>Search Tricks</h2>
+
+                <p>
+                    Prefix searches with a type followed by a colon (e.g.
+                    <code>fn:</code>) to restrict the search to a given type.
+                </p>
+
+                <p>
+                    Accepted types are: <code>fn</code>, <code>mod</code>,
+                    <code>struct</code>, <code>enum</code>,
+                    <code>trait</code>, <code>type</code>, <code>macro</code>,
+                    and <code>const</code>.
+                </p>
+
+                <p>
+                    Search functions by type signature (e.g.
+                    <code>vec -> usize</code> or <code>* -> vec</code>)
+                </p>
+            </div>
+        </div>
+    </aside>
+
+    
+
+    <script>
+        window.rootPath = "../";
+        window.currentCrate = "integer";
+    </script>
+    <script src="../main.js"></script>
+    <script defer src="../search-index.js"></script>
+</body>
+</html>

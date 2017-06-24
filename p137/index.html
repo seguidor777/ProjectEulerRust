@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="rustdoc">
+    <meta name="description" content="API documentation for the Rust `p137` crate.">
+    <meta name="keywords" content="rust, rustlang, rust-lang, p137">
+
+    <title>p137 - Rust</title>
+
+    <link rel="stylesheet" type="text/css" href="../normalize.css">
+    <link rel="stylesheet" type="text/css" href="../rustdoc.css">
+    <link rel="stylesheet" type="text/css" href="../main.css">
+    
+
+    
+    
+</head>
+<body class="rustdoc mod">
+    <!--[if lte IE 8]>
+    <div class="warning">
+        This old browser is unsupported and will most likely display funky
+        things.
+    </div>
+    <![endif]-->
+
+    
+
+    <nav class="sidebar">
+        
+        <p class='location'>Crate p137</p><p class='location'></p><script>window.sidebarCurrent = {name: 'p137', ty: 'mod', relpath: '../'};</script>
+    </nav>
+
+    <nav class="sub">
+        <form class="search-form js-only">
+            <div class="search-container">
+                <input class="search-input" name="search"
+                       autocomplete="off"
+                       placeholder="Click or press ‘S’ to search, ‘?’ for more options…"
+                       type="search">
+            </div>
+        </form>
+    </nav>
+
+    <section id='main' class="content">
+<h1 class='fqn'><span class='in-band'>Crate <a class="mod" href=''>p137</a></span><span class='out-of-band'><span id='render-detail'>
+                   <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
+                       [<span class='inner'>&#x2212;</span>]
+                   </a>
+               </span><a class='srclink' href='../src/p137/p137.rs.html#1-74' title='goto source code'>[src]</a></span></h1>
+<div class='docblock'><p><a href="https://projecteuler.net/problem=137">Problem 137</a> solver.</p>
+
+<pre><code class="language-math">A_F(x)     = x F_1 + x^2 F_2 + x^3 F_3 + \dots
+x A_F(x)   = x^2 F_1 + x^3 F_2 + x^4 F_3 + \dots
+x^2 A_F(x) = x^3 F_1 + x^4 F_2 + x^5 F_3 + \dots
+(1 - x - x^2) A_F(x) = x F_1 + x^2 (F_2 - F_1) + x^3 (F_3 - F_2 - F_1) + \dots
+</code></pre>
+
+<p><code>F_k = F_{k-1} + F_k</code>, <code>F_1 = F_2 = 1</code> より、</p>
+
+<pre><code class="language-math">(1 - x - x^2) A_F(x) = x
+</code></pre>
+
+<p><code>A_F(x)</code> は正の整数なので <code>n := A_F(x) &gt; 0</code> とおくと、
+以下の二次方程式を得る。</p>
+
+<pre><code class="language-math">n x^2 + (n + 1) x - n = 0
+</code></pre>
+
+<p>この方程式が有理数解をもつのは、判別式 <code>D</code> が平方数の場合であり、
+ある整数 <code>m</code> を用いると以下のように表せる場合である。</p>
+
+<pre><code class="language-math">D = (n+1)^2 + 4n^2 = m^2
+(5n+1)^2 - 5m^2 = -4
+</code></pre>
+
+<p>これは Pell 方程式であり、解を列挙すれば良い。</p>
+
+<p><code>p := 5n + 1</code>, <code>q := m</code> とおくと、
+<code>p_0 = 1</code>, <code>q_0 = 1</code> より、
+<code>math p_{k+1} = \frac{3p_k + 5q_k}{2} q_{k+1} = \frac{p_k + 3q_k}{2}</code></p>
+
+<p>となり、これが一般解である。</p>
+</div></section>
+    <section id='search' class="content hidden"></section>
+
+    <section class="footer"></section>
+
+    <aside id="help" class="hidden">
+        <div>
+            <h1 class="hidden">Help</h1>
+
+            <div class="shortcuts">
+                <h2>Keyboard Shortcuts</h2>
+
+                <dl>
+                    <dt>?</dt>
+                    <dd>Show this help dialog</dd>
+                    <dt>S</dt>
+                    <dd>Focus the search field</dd>
+                    <dt>&larrb;</dt>
+                    <dd>Move up in search results</dd>
+                    <dt>&rarrb;</dt>
+                    <dd>Move down in search results</dd>
+                    <dt>&#9166;</dt>
+                    <dd>Go to active search result</dd>
+                    <dt>+</dt>
+                    <dd>Collapse/expand all sections</dd>
+                </dl>
+            </div>
+
+            <div class="infos">
+                <h2>Search Tricks</h2>
+
+                <p>
+                    Prefix searches with a type followed by a colon (e.g.
+                    <code>fn:</code>) to restrict the search to a given type.
+                </p>
+
+                <p>
+                    Accepted types are: <code>fn</code>, <code>mod</code>,
+                    <code>struct</code>, <code>enum</code>,
+                    <code>trait</code>, <code>type</code>, <code>macro</code>,
+                    and <code>const</code>.
+                </p>
+
+                <p>
+                    Search functions by type signature (e.g.
+                    <code>vec -> usize</code> or <code>* -> vec</code>)
+                </p>
+            </div>
+        </div>
+    </aside>
+
+    
+
+    <script>
+        window.rootPath = "../";
+        window.currentCrate = "p137";
+    </script>
+    <script src="../main.js"></script>
+    <script defer src="../search-index.js"></script>
+</body>
+</html>
