@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["Factorized","Factorized number providing multiple or divide operation without causing overflow."],["Factors","Factors iterator."],["Nums","Prime number iterator"],["PrimeSet","Prime number set"]],"trait":[["Factorize","Numbers which can be factorized."]],"type":[["Factor","The base and exponent that represents factor."]]});

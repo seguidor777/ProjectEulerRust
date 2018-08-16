@@ -1,0 +1,57 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="API documentation for the Rust `p134` crate."><meta name="keywords" content="rust, rustlang, rust-lang, p134"><title>p134 - Rust</title><link rel="stylesheet" type="text/css" href="../normalize.css"><link rel="stylesheet" type="text/css" href="../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../dark.css"><link rel="stylesheet" type="text/css" href="../light.css" id="themeStyle"><script src="../storage.js"></script></head><body class="rustdoc mod"><!--[if lte IE 8]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="sidebar-menu">&#9776;</div><p class='location'>Crate p134</p><div class="sidebar-elems"><p class='location'></p><script>window.sidebarCurrent = {name: 'p134', ty: 'mod', relpath: '../'};</script></div></nav><div class="theme-picker"><button id="theme-picker" aria-label="Pick another theme!"><img src="../brush.svg" width="18" alt="Pick another theme!"></button><div id="theme-choices"></div></div><script src="../theme.js"></script><nav class="sub"><form class="search-form js-only"><div class="search-container"><input class="search-input" name="search" autocomplete="off" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><a id="settings-menu" href="../settings.html"><img src="../wheel.svg" width="18" alt="Change settings"></a></div></form></nav><section id="main" class="content"><h1 class='fqn'><span class='out-of-band'><span id='render-detail'><a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">[<span class='inner'>&#x2212;</span>]</a></span><a class='srclink' href='../src/p134/p134.rs.html#1-144' title='goto source code'>[src]</a></span><span class='in-band'>Crate <a class="mod" href=''>p134</a></span></h1><div class='docblock'><p><a href="https://projecteuler.net/problem=134">Problem 134</a> solver.</p>
+<h1 id="解析" class="section-header"><a href="#解析">解析</a></h1>
+<p>連続する素数 <code>p1=19</code>, <code>p2=23</code> の場合を例にして考える。</p>
+<p><code>23n が</code>10k + 9` と書ける場合、</p>
+<pre><code class="language-math">3 * n = 9 (mod 10)
+=&gt; 23n = 23(10k + 3) = 230k + 69
+</code></pre>
+<p>である。</p>
+<p><code>230k + 69</code> が <code>100m + 19</code> と書ける場合、</p>
+<pre><code class="language-math">3 * k + 6 = 1 (mod 10)
+=&gt; 230k + 69 = 230(10m + 5) + 69 = 2300m + 1219
+</code></pre>
+<p>よって、<code>S = 1219</code> である。</p>
+<h1 id="解法" class="section-header"><a href="#解法">解法</a></h1>
+<p><code>n</code>, <code>m</code> について以下を満たす <code>x</code> を、<code>x(n, m)</code> と書く。</p>
+<pre><code class="language-math">n * x = m (mod 10)
+</code></pre>
+<p><code>x_i</code> は <code>x</code> の <code>i</code> 桁目を表すとする。
+以下の漸化式により、<code>S</code> を求めることができる。
+ここで、 <code>n</code> は <code>p1</code> の桁数である。</p>
+<pre><code class="language-math">a[1] = x(p2, p1_1)
+b[1] = a[1] * p2
+a[i] = x(p2, p1_i - b[i-1]_i)
+b[i] = a[i] * p2 * 10^(i-1) + b[i-1]
+S = b[n]
+</code></pre>
+<h2 id="例-p119-と-p223-の場合" class="section-header"><a href="#例-p119-と-p223-の場合">例 <code>p1=19</code> と <code>p2=23</code> の場合</a></h2>
+<pre><code class="language-math">a[1] = x(23, 9) = 3
+b[1] = 3*23 = 69
+a[2] = x(23, 1 - 6) = 5
+b[2] = 50*23 + 69 = 1219
+S = b[2] = 1219
+</code></pre>
+<h2 id="例-p111-と-p213-の場合" class="section-header"><a href="#例-p111-と-p213-の場合">例 <code>p1=11</code> と <code>p2=13</code> の場合</a></h2>
+<pre><code class="language-math">a[1] = x(13, 1) = 7
+b[1] = 7*13 = 91
+a[2] = x(13, 1 - 9) = 4
+b[2] = 40*13 + 91 = 611
+S = b[2] = 611
+</code></pre>
+<h2 id="例-p197-と-p2101-の場合" class="section-header"><a href="#例-p197-と-p2101-の場合">例 <code>p1=97</code> と <code>p2=101</code> の場合</a></h2>
+<pre><code class="language-math">a[1] = x(101, 7) = 7
+b[1] = 7*101 = 707
+a[2] = x(101, 9 - 0) = 9
+b[2] = 90*101 + 707 = 9797
+S = b[2] = 9797
+</code></pre>
+<h2 id="例-p1101-と-p2103-の場合" class="section-header"><a href="#例-p1101-と-p2103-の場合">例 <code>p1=101</code> と <code>p2=103</code> の場合</a></h2>
+<pre><code class="language-math">a[1] = x(103, 1) = 7
+b[1] = 7*103 = 1751
+a[2] = x(103, 0 - 5) = 5
+b[2] = 50*103 + 1751 = 6901
+a[3] = x(103, 1 - 9) = 4
+b[3] = 400*103 + 6901 = 48101
+S = b[3] = 48101
+</code></pre>
+</div></section><section id="search" class="content hidden"></section><section class="footer"></section><aside id="help" class="hidden"><div><h1 class="hidden">Help</h1><div class="shortcuts"><h2>Keyboard Shortcuts</h2><dl><dt><kbd>?</kbd></dt><dd>Show this help dialog</dd><dt><kbd>S</kbd></dt><dd>Focus the search field</dd><dt><kbd>↑</kbd></dt><dd>Move up in search results</dd><dt><kbd>↓</kbd></dt><dd>Move down in search results</dd><dt><kbd>↹</kbd></dt><dd>Switch tab</dd><dt><kbd>&#9166;</kbd></dt><dd>Go to active search result</dd><dt><kbd>+</kbd></dt><dd>Expand all sections</dd><dt><kbd>-</kbd></dt><dd>Collapse all sections</dd></dl></div><div class="infos"><h2>Search Tricks</h2><p>Prefix searches with a type followed by a colon (e.g. <code>fn:</code>) to restrict the search to a given type.</p><p>Accepted types are: <code>fn</code>, <code>mod</code>, <code>struct</code>, <code>enum</code>, <code>trait</code>, <code>type</code>, <code>macro</code>, and <code>const</code>.</p><p>Search functions by type signature (e.g. <code>vec -> usize</code> or <code>* -> vec</code>)</p><p>Search multiple things at once by splitting your query with comma (e.g. <code>str,u8</code> or <code>String,struct:Vec,test</code>)</p></div></div></aside><script>window.rootPath = "../";window.currentCrate = "p134";</script><script src="../aliases.js"></script><script src="../main.js"></script><script defer src="../search-index.js"></script></body></html>

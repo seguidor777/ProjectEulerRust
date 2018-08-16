@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["BitCombination","An iterator that enumerates all combinations of bits."],["CombinationOverlap","An iterator that enumerates all combinations of elemnts."],["Difference","An iterator that enumerates elemnts that is contained in the first iterator."],["Permutations","An iterator that enumerates all permutations of elemnts."]]});

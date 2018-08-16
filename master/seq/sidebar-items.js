@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["Collatz","Collatz sequence iterator."],["Fibonacci","Fibonacci sequence iterator."],["PrimitivePythagoreans","Pritmitive Pythagorean numbers iterator."],["TriangularNums","Triangular numbers sequence iterator."]]});
