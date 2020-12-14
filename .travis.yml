@@ -9,13 +9,17 @@ cache:
 
 rust:
   - nightly
-  # - beta
-  # - stable
+  - beta
+  - stable
 
 script:
   - |
-      cargo build --all --release &&
-      cargo run --release --bin euler &&
-      cargo test --all &&
-      cargo bench --all &&
-      cargo doc --all --no-deps
+      CARGO_OPTS=()
+      if [ "${TRAVIS_RUST_VERSION}" = "nightly" ]; then
+        CARGO_OPTS+=("--features" "unstable")
+      fi
+      cargo build "${CARGO_OPTS[@]}" --workspace --release &&
+      cargo run  "${CARGO_OPTS[@]}" --release --bin euler &&
+      cargo test "${CARGO_OPTS[@]}" --workspace &&
+      cargo bench "${CARGO_OPTS[@]}" --workspace &&
+      cargo doc "${CARGO_OPTS[@]}" --workspace --no-deps
